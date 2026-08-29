@@ -3,7 +3,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from backend.database import engine, Base
-from backend.routers import cases, sync, professionals, analytics, knowledge, consultations, auth
+from backend.routers import cases, sync, professionals, analytics, knowledge, consultations, auth, trust
 from backend.seed import seed_database
 
 # Create database tables and seed sample data
@@ -14,8 +14,8 @@ except Exception as e:
     print(f"Seed note: {e}")
 
 app = FastAPI(
-    title="ONEHEALTH AI - Rural Offline-First Healthcare & Veterinary Platform",
-    description="Offline-first AI Screening & Care Platform for Human & Livestock Health in rural communities like Kopargaon.",
+    title="ONEHEALTH AI - Rural Offline-First Healthcare & Trust Platform",
+    description="Offline-first AI Screening & Care Platform for Human & Livestock Health and TrustLens Information Verification in rural communities.",
     version="1.0.0"
 )
 
@@ -36,6 +36,7 @@ app.include_router(analytics.router)
 app.include_router(knowledge.router)
 app.include_router(consultations.router)
 app.include_router(auth.router)
+app.include_router(trust.router)
 
 # Mount Static Frontend
 frontend_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), "public")

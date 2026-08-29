@@ -14,6 +14,8 @@ const I18N_DICTIONARY = {
     nav_portal: "Clinical Station",
     nav_analytics: "Surveillance",
     nav_clinic_profile: "My Profile",
+    nav_trustlens: "TrustLens",
+    trustlens_tagline: "Verify information before acting",
     status_online: "ONLINE",
     status_offline: "OFFLINE MODE",
     sync_now: "Sync Records",

@@ -800,85 +800,130 @@
       </div>
     </section>
 
-    <!-- 10. ONEHEALTH TRUST & VERIFICATION VIEW ("The Bad Reading" Challenge) -->
+    <!-- 10. ONEHEALTH TRUSTLENS: INFORMATION VERIFICATION & MISINFORMATION ENGINE -->
     <section id="view-trust_verify" class="view-section">
       <div class="container" style="max-width:960px; padding:20px 14px;">
         
         <!-- Header Banner -->
-        <div class="welcome-header" style="text-align:left; margin-bottom:20px; padding:20px; background:#fff; border-radius:16px; border:1px solid var(--border-color); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
+        <div class="welcome-header" style="text-align:left; margin-bottom:20px; padding:22px; background:#fff; border-radius:16px; border:1px solid var(--border-color); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px; box-shadow:0 2px 8px rgba(0,0,0,0.04);">
           <div>
-            <div style="display:flex; align-items:center; gap:8px;">
-              <span style="font-size:24px;">🛡️</span>
-              <h2 style="font-size:18px; font-weight:900; margin:0; color:var(--text-main);">OneHealth Trust & Verification</h2>
+            <div style="display:flex; align-items:center; gap:10px;">
+              <span style="font-size:28px;">🛡️</span>
+              <div>
+                <h2 style="font-size:20px; font-weight:900; margin:0; color:var(--text-main);">OneHealth TrustLens</h2>
+                <div style="font-size:12px; font-weight:700; color:#0f766e; text-transform:uppercase; letter-spacing:0.5px;">Verify information before acting</div>
+              </div>
             </div>
-            <p style="font-size:13px; color:var(--text-muted); margin:4px 0 0;">
-              Real-Time Clinical Evidence Evaluation, Source Authority Verification & Misinformation Defense
+            <p style="font-size:13px; color:var(--text-muted); margin:6px 0 0;">
+              Multi-factor verification for Government Schemes, Medical Advice, Crop Treatments, Civic Complaints & Viral Claims.
             </p>
           </div>
-          <div style="display:flex; gap:8px; align-items:center;">
-            <span id="trustOnlineStatusBadge" class="badge badge-green" style="font-size:11px; padding:4px 10px;">
+          <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+            <span id="trustOnlineStatusBadge" class="badge badge-green" style="font-size:11px; padding:6px 12px; font-weight:700;">
               🟢 Online (Live Registry Verification)
             </span>
             <button class="btn btn-outline btn-sm" onclick="window.oneHealthApp.navigateTo('trust_admin')" style="font-weight:700;">
-              📊 Moderation Dashboard
+              📊 Admin & Moderation
             </button>
           </div>
         </div>
 
         <!-- 1. Claim Verification Input Card -->
-        <div class="dash-panel" style="margin-bottom:20px;">
-          <div class="dash-panel-header">
-            <span class="dash-panel-title">📝 Verify Health Information or Community Advisory</span>
+        <div class="dash-panel" style="margin-bottom:20px; background:#fff; border:1px solid var(--border-color); border-radius:16px; box-shadow:0 2px 8px rgba(0,0,0,0.03);">
+          <div class="dash-panel-header" style="background:#f8fafc; border-bottom:1px solid #e2e8f0; padding:14px 18px; border-radius:16px 16px 0 0;">
+            <span class="dash-panel-title" style="font-size:14px; font-weight:800; color:#0f172a;">📝 VERIFY INFORMATION</span>
+            <span style="font-size:12px; color:var(--text-muted);">Paste a claim, message, URL, or complaint below.</span>
           </div>
           <div style="padding:18px;">
-            <label style="font-size:13px; font-weight:700; color:#334155; margin-bottom:6px; display:block;">
-              Paste a health claim, WhatsApp forward, social media post, friend's advice, or treatment advisory below:
-            </label>
-            <textarea id="trustClaimInput" rows="3" class="form-control" style="resize:vertical; font-size:14px;"
-              placeholder="e.g. 'My WhatsApp group says neem juice completely cures dengue in 24 hours and you don\'t need to visit a doctor...'"></textarea>
             
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-top:12px; flex-wrap:wrap; gap:10px;">
-              <div style="font-size:12px; color:var(--text-muted);">
-                💡 Evaluates against MoHFW, ICMR, AIIMS, WHO & peer-reviewed clinical guidelines.
+            <div style="display:flex; gap:12px; margin-bottom:12px; flex-wrap:wrap;">
+              <div style="flex:1; min-width:200px;">
+                <label style="font-size:12px; font-weight:700; color:#475569; margin-bottom:4px; display:block;">Claim Category:</label>
+                <select id="trustCategorySelect" class="form-control" style="font-size:13px; font-weight:600;">
+                  <option value="Government">🏛️ Government Scheme / Welfare</option>
+                  <option value="Healthcare">🩺 Healthcare & Medical Advice</option>
+                  <option value="Agriculture">🌾 Agriculture & Crop Treatment</option>
+                  <option value="Civic">🏙️ Civic Complaint & Infrastructure</option>
+                  <option value="Education">🎓 Education & Exam Notice</option>
+                  <option value="Finance">💰 Financial & Banking Claims</option>
+                  <option value="Other">🔍 Other / General Message</option>
+                </select>
               </div>
+              <div style="flex:1; min-width:200px;">
+                <label style="font-size:12px; font-weight:700; color:#475569; margin-bottom:4px; display:block;">Optional Reference URL:</label>
+                <input type="url" id="trustUrlInput" class="form-control" style="font-size:13px;" placeholder="https://example.com/claim-or-post" />
+              </div>
+            </div>
+
+            <label style="font-size:12px; font-weight:700; color:#475569; margin-bottom:4px; display:block;">
+              Claim Statement or Message Text:
+            </label>
+            <textarea id="trustClaimInput" rows="3" class="form-control" style="resize:vertical; font-size:14px; line-height:1.5;"
+              placeholder="Paste claim text here (e.g. 'Government Scheme XYZ is a scam' or 'Use treatment X to cure crop disease in one day' or civic complaints)..."></textarea>
+            
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-top:14px; flex-wrap:wrap; gap:10px;">
+              <div style="display:flex; align-items:center; gap:8px;">
+                <label class="btn btn-outline btn-sm" style="cursor:pointer; font-size:11px; padding:6px 12px; margin:0;">
+                  📷 Upload Screenshot / Image
+                  <input type="file" id="trustImageInput" accept="image/*" style="display:none;" onchange="window.oneHealthApp.handleTrustImageUpload(event)" />
+                </label>
+                <span id="trustImageBadge" style="font-size:11px; color:#0f766e; display:none; font-weight:700;">✓ Image attached</span>
+              </div>
+              
               <div style="display:flex; gap:8px;">
-                <button class="btn btn-outline btn-sm" onclick="document.getElementById('trustClaimInput').value=''">
+                <button class="btn btn-outline btn-sm" onclick="window.oneHealthApp.clearTrustForm()">
                   🧹 Clear
                 </button>
-                <button class="btn btn-primary" onclick="window.oneHealthApp.verifyHealthClaim()" style="font-weight:800; padding:8px 20px;">
-                  🔍 Verify Health Claim
+                <button class="btn btn-primary" onclick="window.oneHealthApp.verifyHealthClaim()" style="font-weight:800; padding:8px 24px; background:#0f766e; border-color:#0f766e;">
+                  🔍 Verify Information
                 </button>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- 2. Controlled Live Demo Section (1-Click Test Scenarios) -->
-        <div class="dash-panel" style="margin-bottom:20px; background:#f8fafc;">
-          <div class="dash-panel-header">
-            <span class="dash-panel-title">⚡ Controlled Live Demo Mode (1-Click Test Scenarios)</span>
-            <span style="font-size:11px; color:var(--text-muted);">Real Evidence Engine</span>
+        <!-- 2. Demonstration Scenarios (1-Click Test Scenarios) -->
+        <div class="dash-panel" style="margin-bottom:20px; background:#f8fafc; border:1px solid #e2e8f0; border-radius:16px;">
+          <div class="dash-panel-header" style="background:#f1f5f9; padding:12px 18px; border-radius:16px 16px 0 0;">
+            <span class="dash-panel-title" style="font-size:13px; font-weight:800; color:#1e293b;">⚡ Demonstration Scenarios (1-Click Verification)</span>
+            <span style="font-size:11px; color:var(--text-muted);">Deterministic Multi-Factor Engine</span>
           </div>
-          <div style="padding:14px; display:grid; grid-template-columns:repeat(auto-fit, minmax(170px, 1fr)); gap:10px;">
-            <button class="btn btn-outline btn-sm" onclick="window.oneHealthApp.runTrustDemoScenario('DEMO-MISINFO-01')" style="text-align:left; padding:8px; border-color:#fca5a5; background:#fff1f2; color:#991b1b; font-size:11px; font-weight:700;">
-              🔴 Contradicted Misinfo<br><span style="font-size:10px; font-weight:500; color:#475569;">"Neem cures dengue in 24h"</span>
+          <div style="padding:14px; display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:12px;">
+            
+            <!-- Scenario 1: Government Scheme Rumor -->
+            <button class="btn btn-outline" onclick="window.oneHealthApp.runTrustDemoScenario('SCENARIO-GOVT-01')" style="text-align:left; padding:12px; border-color:#fca5a5; background:#fff; color:#991b1b; border-radius:10px; display:flex; flex-direction:column; gap:4px;">
+              <div style="display:flex; justify-content:space-between; align-items:center; width:100%;">
+                <strong style="font-size:12px;">SCENARIO 1 — GOVT SCHEME</strong>
+                <span class="badge badge-red" style="font-size:10px;">🔴 Contradicted</span>
+              </div>
+              <span style="font-size:11px; font-weight:700; color:#0f172a;">"Government Scheme XYZ is a scam. Do not apply."</span>
+              <span style="font-size:10px; color:#64748b;">Checks MyScheme, PIB Fact Check & Gazette records</span>
             </button>
-            <button class="btn btn-outline btn-sm" onclick="window.oneHealthApp.runTrustDemoScenario('DEMO-SUPPORTED-02')" style="text-align:left; padding:8px; border-color:#86efac; background:#f0fdf4; color:#166534; font-size:11px; font-weight:700;">
-              🟢 Supported Guideline<br><span style="font-size:10px; font-weight:500; color:#475569;">"ORS + Zinc for diarrhea"</span>
+
+            <!-- Scenario 2: Fake Crop Treatment -->
+            <button class="btn btn-outline" onclick="window.oneHealthApp.runTrustDemoScenario('SCENARIO-AGRI-02')" style="text-align:left; padding:12px; border-color:#fed7aa; background:#fff; color:#9a3412; border-radius:10px; display:flex; flex-direction:column; gap:4px;">
+              <div style="display:flex; justify-content:space-between; align-items:center; width:100%;">
+                <strong style="font-size:12px;">SCENARIO 2 — CROP TREATMENT</strong>
+                <span class="badge badge-yellow" style="font-size:10px;">🟠 Suspicious</span>
+              </div>
+              <span style="font-size:11px; font-weight:700; color:#0f172a;">"Use treatment X and crop disease disappears in 1 day"</span>
+              <span style="font-size:10px; color:#64748b;">Checks ICAR / KVK IPM protocols & safety</span>
             </button>
-            <button class="btn btn-outline btn-sm" onclick="window.oneHealthApp.runTrustDemoScenario('DEMO-UNCERTAIN-03')" style="text-align:left; padding:8px; border-color:#fde047; background:#fefce8; color:#854d0e; font-size:11px; font-weight:700;">
-              🟡 Uncertain Evidence<br><span style="font-size:10px; font-weight:500; color:#475569;">"Copper water for asthma"</span>
+
+            <!-- Scenario 3: Coordinated Civic Complaints -->
+            <button class="btn btn-outline" onclick="window.oneHealthApp.runTrustDemoScenario('SCENARIO-CIVIC-03')" style="text-align:left; padding:12px; border-color:#fed7aa; background:#fff; color:#9a3412; border-radius:10px; display:flex; flex-direction:column; gap:4px;">
+              <div style="display:flex; justify-content:space-between; align-items:center; width:100%;">
+                <strong style="font-size:12px;">SCENARIO 3 — CIVIC BURST</strong>
+                <span class="badge badge-orange" style="font-size:10px;">⚡ High Coordination</span>
+              </div>
+              <span style="font-size:11px; font-weight:700; color:#0f172a;">50 complaints: "Company X illegally dumping waste"</span>
+              <span style="font-size:10px; color:#64748b;">Detects 38 duplicate texts in 20 min window</span>
             </button>
-            <button class="btn btn-outline btn-sm" onclick="window.oneHealthApp.runTrustDemoScenario('DEMO-HIGHRISK-04')" style="text-align:left; padding:8px; border-color:#fca5a5; background:#fff1f2; color:#991b1b; font-size:11px; font-weight:700;">
-              ⚠️ High-Risk Directive<br><span style="font-size:10px; font-weight:500; color:#475569;">"Stop BP medication"</span>
-            </button>
-            <button class="btn btn-outline btn-sm" onclick="window.oneHealthApp.runTrustDemoScenario('DEMO-BURST-05')" style="text-align:left; padding:8px; border-color:#fed7aa; background:#fff7ed; color:#9a3412; font-size:11px; font-weight:700;">
-              ⚡ Coordinated Burst<br><span style="font-size:10px; font-weight:500; color:#475569;">"Rapid chlorine dioxide claim"</span>
-            </button>
+
           </div>
         </div>
 
-        <!-- 3. Dynamic Verification Results Container -->
+        <!-- 3. Dynamic Explainable Verification Results Container -->
         <div id="trustResultContainer" style="display:none;"></div>
 
       </div>

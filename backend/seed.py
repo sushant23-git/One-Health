@@ -6,7 +6,7 @@ Populates SQLite with initial doctors, sample cases, outbreak alerts, and the fu
 import json
 import os
 from backend.database import engine, Base, SessionLocal
-from backend.models import User, Case, OutbreakAlert, DoctorProfile, ClinicalKnowledge
+from backend.models import User, Case, OutbreakAlert, DoctorProfile, ClinicalKnowledge, TrustedSource, VerifiedClaim
 
 def seed_database():
     print("[Backend Seeder] Creating database tables...")
@@ -121,6 +121,25 @@ def seed_database():
                 db.merge(doc)
             db.commit()
             print("[Backend Seeder] Initial doctors seeded successfully.")
+
+        # 3. Seed Trusted Sources for TrustLens
+        src_count = db.query(TrustedSource).count()
+        if src_count == 0:
+            print("[Backend Seeder] Seeding Authoritative Sources for TrustLens...")
+            sources = [
+                TrustedSource(source_id="SRC-MYSCHEME-01", name="MyScheme National Portal", organization="MeitY, Government of India", source_type="Official Government Portal", domain="myscheme.gov.in", authority_level="HIGH_TRUST", trust_score=98, country="India", last_verified="2026-08-28"),
+                TrustedSource(source_id="SRC-PIBFACT-02", name="PIB Fact Check Unit", organization="Press Information Bureau, GoI", source_type="Official Fact-Checking Body", domain="pib.gov.in", authority_level="HIGH_TRUST", trust_score=96, country="India", last_verified="2026-08-29"),
+                TrustedSource(source_id="SRC-MOHFW-04", name="Ministry of Health and Family Welfare (MoHFW)", organization="Government of India", source_type="Government Health Authority", domain="mohfw.gov.in", authority_level="HIGH_TRUST", trust_score=98, country="India", last_verified="2026-08-25"),
+                TrustedSource(source_id="SRC-ICMR-05", name="Indian Council of Medical Research (ICMR)", organization="Department of Health Research, GoI", source_type="Medical Research Institution", domain="icmr.gov.in", authority_level="HIGH_TRUST", trust_score=97, country="India", last_verified="2026-08-20"),
+                TrustedSource(source_id="SRC-AIIMS-06", name="AIIMS New Delhi", organization="Autonomous Medical Institution", source_type="Verified Hospital / Medical Institution", domain="aiims.edu", authority_level="HIGH_TRUST", trust_score=96, country="India", last_verified="2026-08-10"),
+                TrustedSource(source_id="SRC-ICAR-09", name="Indian Council of Agricultural Research (ICAR)", organization="DARE, Government of India", source_type="Agricultural Research Authority", domain="icar.org.in", authority_level="HIGH_TRUST", trust_score=98, country="India", last_verified="2026-08-22"),
+                TrustedSource(source_id="SRC-KVK-10", name="Krishi Vigyan Kendra Network (KVK)", organization="ICAR / MPKV", source_type="Agricultural Extension Centre", domain="kvk.icar.gov.in", authority_level="HIGH_TRUST", trust_score=95, country="India", last_verified="2026-08-20"),
+                TrustedSource(source_id="SRC-WHO-07", name="World Health Organization (WHO)", organization="United Nations", source_type="International Health Agency", domain="who.int", authority_level="HIGH_TRUST", trust_score=97, country="Global", last_verified="2026-08-28")
+            ]
+            for s in sources:
+                db.merge(s)
+            db.commit()
+            print(f"[Backend Seeder] Seeded {len(sources)} authoritative sources successfully.")
 
     except Exception as e:
         print("[Backend Seeder] Error during seed:", e)
